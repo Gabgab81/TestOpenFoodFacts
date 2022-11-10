@@ -3,8 +3,13 @@
 
 <% @products.each do |product| %>
     <br>
+    <% product = Openfoodfacts::Product.get(product.code, locale: 'fr') %>
     <p>Name: <%= product.product_name %> </p> 
     <p>Code: <%= product.code %> </p> 
     <%= image_tag(product.image_small_url) %>
+    <p>Sodium : <%= product.nutriments.to_hash["sodium"] %></p>
+    <p>Proteins (100g) : <%= product.nutriments.to_hash["proteins_100g"] %></p>
+    <p>Energy (Kcal) : <%= product.nutriments.to_hash["energy-kcal"] %></p>
+    <p>Fat (100g) : <%= product.nutriments.to_hash["fat_100g"] %></p>
     <br>
 <% end %>
