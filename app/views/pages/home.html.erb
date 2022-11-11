@@ -1,6 +1,8 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
+<%= link_to "See the ingredients", ingredients_path %>
+
 <%= form_with url: root_path, method: :get, class: "d-flex" do %>
   <%= text_field_tag :query,
     params[:query],
