@@ -24,5 +24,9 @@
     <p>Proteins (100g) : <%= product.nutriments.to_hash["proteins_100g"] %></p>
     <p>Energy (Kcal) : <%= product.nutriments.to_hash["energy-kcal"] %></p>
     <p>Fat (100g) : <%= product.nutriments.to_hash["fat_100g"] %></p>
+    <%= product.nutriments.to_hash.each do |key, value| %>
+        <p><%= key %>: <%= value %></p>
+    <% end %>
+
     <br>
 <% end %>
