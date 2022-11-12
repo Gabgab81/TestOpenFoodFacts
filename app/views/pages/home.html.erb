@@ -11,24 +11,25 @@
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
+<% if params[:query].present? %>
+  <% @products.each do |product| %>
+      <br>
+      <% product = Openfoodfacts::Product.get(product.code, locale: 'fr') %>
+      <p>Name: <%= product.product_name %> </p> 
+      <p>Code: <%= product.code %> </p> 
+      <% if product.image_small_url.nil? %>
+          <p>No picture available</p>
+      <% else %>
+          <%= image_tag(product.image_small_url) %>
+      <% end %>
+      <p>Sodium : <%= product.nutriments.to_hash["sodium"] %></p>
+      <p>Proteins (100g) : <%= product.nutriments.to_hash["proteins_100g"] %></p>
+      <p>Energy (Kcal) : <%= product.nutriments.to_hash["energy-kcal"] %></p>
+      <p>Fat (100g) : <%= product.nutriments.to_hash["fat_100g"] %></p>
+      <%= product.nutriments.to_hash.each do |key, value| %>
+          <p><%= key %>: <%= value %></p>
+      <% end %>
 
-<% @products.each do |product| %>
-    <br>
-    <% product = Openfoodfacts::Product.get(product.code, locale: 'fr') %>
-    <p>Name: <%= product.product_name %> </p> 
-    <p>Code: <%= product.code %> </p> 
-    <% if product.image_small_url.nil? %>
-        <p>No picture available</p>
-    <% else %>
-        <%= image_tag(product.image_small_url) %>
-    <% end %>
-    <p>Sodium : <%= product.nutriments.to_hash["sodium"] %></p>
-    <p>Proteins (100g) : <%= product.nutriments.to_hash["proteins_100g"] %></p>
-    <p>Energy (Kcal) : <%= product.nutriments.to_hash["energy-kcal"] %></p>
-    <p>Fat (100g) : <%= product.nutriments.to_hash["fat_100g"] %></p>
-    <%= product.nutriments.to_hash.each do |key, value| %>
-        <p><%= key %>: <%= value %></p>
-    <% end %>
-
-    <br>
+      <br>
+  <% end %>
 <% end %>

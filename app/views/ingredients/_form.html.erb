@@ -1,0 +1,40 @@
+<%= form_with url: new_ingredient_path, method: :get, class: "d-flex" do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Find a product"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+<% if false %>
+    <% if params[:query].present? %>
+    <% @products.each do |product| %>
+        <br>
+        <% product = Openfoodfacts::Product.get(product.code, locale: 'fr') %>
+        <p>Name: <%= product.product_name %> </p> 
+        <p>Code: <%= product.code %> </p> 
+        <% if product.image_small_url.nil? %>
+            <p>No picture available</p>
+        <% else %>
+            <%= image_tag(product.image_small_url) %>
+        <% end %>
+        <br>
+    <% end %>
+    <% end %>
+<% end %>
+
+<% if false %>
+    <%= simple_form_for(ingredient) do |f| %>
+        <%= f.input :info do %>
+            <%= f.select :info, @products.map {|product| [product.product_name, product.code] }, include_blank: true %> 
+        <% end %>
+        <%= f.submit %>
+    <% end %>
+<% end %>
+
+<%= simple_form_for @ingredient do |f| %>
+  <%= f.input :info, as: :radio_buttons, collection: @products, label_method: :product_name %>
+  <%= f.button :submit %>
+<% end %>
+
+<%# Wrapping Rails Form Helpers %>
