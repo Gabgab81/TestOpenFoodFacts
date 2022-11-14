@@ -1,5 +1,15 @@
 <h1>Show</h1>
 
+<p><%= @ingredient.code %> </p>
+
+<p><%= @ingredient.name %> </p>
+
 <p><%= @ingredient.info %> </p>
+
+<% if @ingredient.image.nil? %>
+    <p>No picture available</p>
+<% else %>
+    <%= image_tag(@ingredient.image) %>
+<% end %>
 
 <%= link_to "All the ingredients", ingredients_path %>

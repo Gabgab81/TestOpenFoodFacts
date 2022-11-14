@@ -22,6 +22,10 @@ class IngredientsController < ApplicationController
         @ingredient = Ingredient.new(ingredient_params)
         # raise
         # @ingredient.info = param
+        @product = Openfoodfacts::Product.get(@ingredient.code, locale: 'fr')
+        @ingredient.name = @product.product_name
+        @ingredient.info = @product.nutriments.to_hash
+        @ingredient.image = @product["image_front_small_url"]
         @ingredient.save
         redirect_to ingredient_path(@ingredient)
     end
@@ -29,7 +33,7 @@ class IngredientsController < ApplicationController
     private
 
     def ingredient_params
-        params.require(:ingredient).permit(:info)
+        params.require(:ingredient).permit(:code)
     end
 
 end

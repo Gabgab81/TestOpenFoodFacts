@@ -3,5 +3,12 @@
 <%= link_to "New ingredient", new_ingredient_path %>
 
 <% @ingredients.each do |ingredient| %>
-    <p><%= ingredient.info %> </p>
+    <p><%= ingredient.name %> </p>
+    <p><%= ingredient.code %> </p>
+    <p><%= ingredient.info["proteins_100g"] %> </p>
+    <% if ingredient.image.nil? %>
+        <p>No picture available</p>
+    <% else %>
+        <%= image_tag(ingredient.image) %>
+    <% end %>
 <% end %>
