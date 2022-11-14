@@ -5,5 +5,7 @@ class PagesController < ApplicationController
     else
       @products =  Openfoodfacts::Product.search("chocolat", locale: 'world', page_size: 3)
     end
+    @product = Openfoodfacts::Product.get(@products.first.code, locale: 'fr')
+    # raise
   end
 end
