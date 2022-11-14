@@ -13,7 +13,8 @@ class IngredientsController < ApplicationController
             @products =  Openfoodfacts::Product.search(params[:query], locale: 'world', page_size: 3)
           else
             @products =  Openfoodfacts::Product.search("chocolat", locale: 'world', page_size: 3)
-          end
+        end
+        # raise
         @ingredient = Ingredient.new
     end
 
