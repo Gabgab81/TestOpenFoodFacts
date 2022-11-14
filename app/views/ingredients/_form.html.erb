@@ -6,40 +6,19 @@
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
-<% if false %>
-    <% if params[:query].present? %>
-    <% @products.each do |product| %>
-        <br>
-        <% product = Openfoodfacts::Product.get(product.code, locale: 'fr') %>
-        <p>Name: <%= product.product_name %> </p> 
-        <p>Code: <%= product.code %> </p> 
-        <% if product.image_small_url.nil? %>
-            <p>No picture available</p>
-        <% else %>
-            <%= image_tag(product.image_small_url) %>
-        <% end %>
-        <br>
-    <% end %>
-    <% end %>
-<% end %>
 
-<% if false %>
-    <%= simple_form_for(ingredient) do |f| %>
-        <%= f.input :info do %>
-            <%= f.select :info, @products.map {|product| [product.product_name, product.code] }, include_blank: true %> 
-        <% end %>
-        <%= f.submit %>
+<div data-controller="submit-item">
+    <%= simple_form_for([@ingredient], data:{submit_item_target: "form"}) do |f| %>
+        <% label_method = proc { |p| 
+        "<div data-action = 'click->submit-item#submit'>
+            <div>#{p.product_name}</div>
+            <div>#{image_tag(p.image_small_url)}</div>
+        </div>".html_safe } %>
+        <%= f.input :code, as: :radio_buttons, 
+        collection: @products, 
+        label_method: label_method, 
+        value_method: :code, 
+        wrapper_html: { } %>
     <% end %>
-<% end %>
+</div>
 
-<%= simple_form_for @ingredient do |f| %>
-    <% label_method = proc { |p| 
-    "<div>
-        <div>#{p.product_name}</div>
-        <div>#{image_tag(p.image_small_url)}</div>
-    </div>".html_safe } %>
-    <%= f.input :code, as: :radio_buttons, collection: @products, label_method: label_method, value_method: :code, wrapper_html: {} %>
-    <%= f.button :submit %>
-<% end %>
-
-<%# Wrapping Rails Form Helpers %>

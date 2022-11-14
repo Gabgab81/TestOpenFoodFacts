@@ -1,1 +1,17 @@
 // Specific CSS for your home-page
+.form-check{
+    input + label{
+        background: aqua;
+        cursor: pointer;
+        &:hover{
+            border: 1px solid red;
+        }
+        
+    }
+    input{
+        visibility: hidden;
+        // &:checked + label {
+        //     background: red;
+        // }
+    }
+}
