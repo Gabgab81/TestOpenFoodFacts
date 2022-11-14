@@ -3,5 +3,5 @@
 <%= link_to "New ingredient", new_ingredient_path %>
 
 <% @ingredients.each do |ingredient| %>
-    <p><%= ingredient.info[product_name] %> </p>
+    <p><%= ingredient.info %> </p>
 <% end %>

@@ -20,7 +20,7 @@ class IngredientsController < ApplicationController
 
     def create
         @ingredient = Ingredient.new(ingredient_params)
-        raise
+        # raise
         # @ingredient.info = param
         @ingredient.save
         redirect_to ingredient_path(@ingredient)
